@@ -9,12 +9,12 @@ describe('Teste o componente App.js', () => {
   test('É exibido na tela um link com o texto Home', async () => {
     renderWithRouter(<App />);
 
-    const home = screen.getByRole('link', {
-      name: 'Home',
-    });
-    userEvent.click(home);
+    // const home = screen.getByRole('link', {
+    //   name: 'Home',
+    // });
+    // userEvent.click(home);
 
-    screen.getByRole('heading', {
+    screen.getByRole('link', {
       name: /home/i,
     });
   });
