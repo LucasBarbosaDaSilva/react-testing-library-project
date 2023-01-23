@@ -1,12 +1,10 @@
 import { screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 import { NotFound } from '../pages';
 import renderWithRouter from '../renderWithRouter';
 
 describe('Teste o componente NotFound.js', () => {
-  test('É exibido na tela um h2 com o texto Page requested not found', () => {
+  test('É exibido na tela uma tag h2 com o texto Page requested not found', () => {
     renderWithRouter(<NotFound />);
 
     screen.getByRole('heading', { level: 2, name: /Page requested not found/i });
