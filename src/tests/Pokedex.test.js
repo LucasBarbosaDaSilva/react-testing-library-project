@@ -27,4 +27,58 @@ describe('Teste o componente <Pokedex.js />', () => {
     const text = screen.getByRole('heading', { level: 2, name: /Encountered Pokémon/i });
     expect(text).toBeDefined();
   });
+  test('É possível clicar no botão de filtragem All', () => {
+    renderWithRouter(<Pokedex
+      isPokemonFavoriteById={ isPokemonFavoriteById }
+      pokemonList={ pokemonList }
+    />);
+
+    const buttonAll = screen.getByRole('button', { name: /All/i });
+    expect(buttonAll).toBeEnabled();
+  });
+  test('Teste se a Pokédex tem os botões de filtro', () => {
+    renderWithRouter(
+      <Pokedex
+        isPokemonFavoriteById={ isPokemonFavoriteById }
+        pokemonList={ pokemonList }
+      />,
+    );
+    const filterButtons = [
+      'Electric',
+      'Fire',
+      'Bug',
+      'Poison',
+      'Psychic',
+      'Normal',
+      'Dragon',
+    ];
+    const buttons = screen.getAllByTestId('pokemon-type-button');
+    expect(buttons).toHaveLength(7);
+
+    filterButtons.forEach((e) => {
+      const btns = screen.getByRole('button', { name: e });
+      expect(btns).toBeInTheDocument();
+
+      userEvent.click(btns);
+      const pokemonType = screen.getByTestId('pokemon-type');
+      expect(pokemonType).toHaveTextContent(e);
+    });
+  });
+  test('Teste se é exibido o próximo Pokémon da lista quando o botão Próximo Pokémon é clicado', () => {
+    renderWithRouter(<Pokedex
+      isPokemonFavoriteById={ isPokemonFavoriteById }
+      pokemonList={ pokemonList }
+    />);
+
+    const nextButton = screen.getByRole('button', { name: /Próximo Pokémon/i });
+    expect(nextButton).toBeEnabled();
+
+    pokemonList.forEach((e) => {
+      const pokemonsName = screen.getByText(e.name);
+      expect(pokemonsName).toBeDefined();
+      userEvent.click(nextButton);
+    });
+    const firstPokemon = screen.getByText(pokemonList[0].name);
+    expect(firstPokemon).toBeDefined();
+  });
 });
