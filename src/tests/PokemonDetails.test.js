@@ -41,4 +41,16 @@ describe('Teste o componente PokemonDetails.js', () => {
     expect(pokeImg[0].alt).toBe('Pikachu location');
     expect(pokeImg[1].alt).toBe('Pikachu location');
   });
+  test('Teste se o usuário pode favoritar um Pokémon através da página de detalhes', () => {
+    renderWithRouter(<App />);
+
+    const detailsButton = screen.getByRole('link', { name: /More details/i });
+    userEvent.click(detailsButton);
+    const checkButton = screen.getByRole('checkbox', { name: /Pokémon favoritado\?/i });
+    userEvent.click(checkButton);
+    const favoritePoke = screen.getByRole('img', { name: /Pikachu is marked as favorite/i });
+    userEvent.click(checkButton);
+
+    expect(favoritePoke).not.toBeInTheDocument();
+  });
 });
