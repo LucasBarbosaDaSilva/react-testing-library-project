@@ -1,4 +1,4 @@
-import { screen, cleanup } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { Pokedex } from '../pages';
@@ -6,7 +6,6 @@ import renderWithRouter from '../renderWithRouter';
 import pokemonList from '../data';
 
 describe('Teste o componente <Pokedex.js />', () => {
-  // afterEach(cleanup);
   const isPokemonFavoriteById = {
     4: false,
     10: false,
