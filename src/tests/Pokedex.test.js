@@ -95,4 +95,22 @@ describe('Teste o componente <Pokedex.js />', () => {
     const wrongPokemon = screen.queryByText(/Caterpie/i);
     expect(wrongPokemon).not.toBeInTheDocument();
   });
+  test('Teste se a Pokédex contém um botão para resetar o filtro', () => {
+    renderWithRouter(<Pokedex
+      isPokemonFavoriteById={ isPokemonFavoriteById }
+      pokemonList={ pokemonList }
+    />);
+
+    const buttonAll = screen.getByRole('button', { name: /All/i });
+    expect(buttonAll).toBeEnabled();
+
+    const dragonButton = screen.getByRole('button', { name: /dragon/i });
+    userEvent.click(dragonButton);
+    const dragonPokemon = screen.getByText(/Dragonair/i);
+    expect(dragonPokemon).toBeDefined();
+
+    userEvent.click(buttonAll);
+    const firstPokemon = screen.getByText(pokemonList[0].name);
+    expect(firstPokemon).toBeInTheDocument();
+  });
 });
