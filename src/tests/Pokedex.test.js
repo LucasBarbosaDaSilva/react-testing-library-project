@@ -5,7 +5,7 @@ import { Pokedex } from '../pages';
 import renderWithRouter from '../renderWithRouter';
 import pokemonList from '../data';
 
-describe('Teste o componente <Pokedex.js />', () => {
+describe('Teste o componente Pokedex.js', () => {
   const isPokemonFavoriteById = {
     4: false,
     10: false,
