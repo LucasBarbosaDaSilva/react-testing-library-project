@@ -80,4 +80,19 @@ describe('Teste o componente <Pokedex.js />', () => {
     const firstPokemon = screen.getByText(pokemonList[0].name);
     expect(firstPokemon).toBeDefined();
   });
+  test('Teste se é mostrado apenas um Pokémon por vez', () => {
+    renderWithRouter(<Pokedex
+      isPokemonFavoriteById={ isPokemonFavoriteById }
+      pokemonList={ pokemonList }
+    />);
+
+    const nextButton = screen.getByRole('button', { name: /Próximo Pokémon/i });
+    expect(nextButton).toBeDefined();
+
+    const animalPokemon = screen.getByText(/Pikachu/i);
+    expect(animalPokemon).toBeDefined();
+
+    const wrongPokemon = screen.queryByText(/Caterpie/i);
+    expect(wrongPokemon).not.toBeInTheDocument();
+  });
 });
